@@ -117,7 +117,7 @@ func (c *forecastConfig) parseCond(dp forecastDataPoint) (ret iface.Cond, err er
 	}
 
 	if dp.Time == nil {
-		return iface.Cond{}, fmt.Errorf("The forecast.io response did not provide a time for the weather condition")
+		return iface.Cond{}, fmt.Errorf("The darksky.net response did not provide a time for the weather condition")
 	}
 	ret.Time = time.Unix(*dp.Time, 0).In(c.tz)
 
@@ -214,9 +214,9 @@ func (c *forecastConfig) fetchToday(location string) ([]iface.Cond, error) {
 }
 
 func (c *forecastConfig) Setup() {
-	flag.StringVar(&c.apiKey, "forecast-api-key", "", "forecast backend: the api `KEY` to use")
-	flag.StringVar(&c.lang, "forecast-lang", "en", "forecast backend: the `LANGUAGE` to request from forecast.io")
-	flag.BoolVar(&c.debug, "forecast-debug", false, "forecast backend: print raw requests and responses")
+	flag.StringVar(&c.apiKey, "darksky-api-key", "", "darksky backend: the api `KEY` to use")
+	flag.StringVar(&c.lang, "darksky-lang", "en", "darksky backend: the `LANGUAGE` to request from darksky.net")
+	flag.BoolVar(&c.debug, "darksky-debug", false, "darksky backend: print raw requests and responses")
 }
 
 func (c *forecastConfig) Fetch(location string, numdays int) iface.Data {
@@ -224,10 +224,10 @@ func (c *forecastConfig) Fetch(location string, numdays int) iface.Data {
 	todayChan := make(chan []iface.Cond)
 
 	if len(c.apiKey) == 0 {
-		log.Fatal("No forecast.io API key specified.\nYou have to register for one at https://developer.forecast.io/register")
+		log.Fatal("No darksky.net API key specified.\nYou have to register for one at https://darksky.net/dev/register")
 	}
 	if matched, err := regexp.MatchString(`^-?[0-9]*(\.[0-9]+)?,-?[0-9]*(\.[0-9]+)?$`, location); !matched || err != nil {
-		log.Fatalf("Error: The forecast.io backend only supports latitude,longitude pairs as location.\nInstead of `%s` try `40.748,-73.985` for example to get a forecast for New York", location)
+		log.Fatalf("Error: The darksky.net backend only supports latitude,longitude pairs as location.\nInstead of `%s` try `40.748,-73.985` for example to get a forecast for New York", location)
 	}
 
 	c.tz = time.Local
@@ -287,5 +287,5 @@ func (c *forecastConfig) Fetch(location string, numdays int) iface.Data {
 }
 
 func init() {
-	iface.AllBackends["forecast.io"] = &forecastConfig{}
+	iface.AllBackends["darksky.net"] = &forecastConfig{}
 }

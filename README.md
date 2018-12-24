@@ -39,13 +39,13 @@ go get -u github.com/schachmat/wego
 0. Run `wego` once. You will get an error message, but the `.wegorc` config file
    will be generated in your `$HOME` directory (it will be hidden in some file
    managers due to the filename starting with a dot).
-0. __With a [forecast.io](http://forecast.io/) account__ (new default)
-    * Create your account on https://developer.forecast.io/register
+0. __With a [darksky.net](http://darksky.net/) account__ (new default)
+    * Create your account on https://darksky.net/dev/register
     * Update the following `.wegorc` config variables to fit your needs:
     ```
-      backend=forecast.io
+      backend=darksky.net
       location=40.748,-73.985
-      forecast-api-key=YOUR_FORECAST.IO_API_KEY_HERE
+      darksky-api-key=YOUR_FORECAST.IO_API_KEY_HERE
     ```
 0. __With an [Openweathermap](https://home.openweathermap.org/) account__
     * You can create an account and get a free API key by [signing up](https://home.openweathermap.org/users/sign_up)
@@ -70,7 +70,7 @@ go get -u github.com/schachmat/wego
 0. If you're visiting someone in e.g. London over the weekend, just run `wego 4
    London` or `wego London 4` (the ordering of arguments makes no difference) to
    get the forecast for the current and the next 3 days. Unfortunately that does
-   not currently work with the forecast.io backend, as it only supports
+   not currently work with the darksky.net backend, as it only supports
    latitude,longitude location specification.
 
 You can set the `$WEGORC` environment variable to override the default config
