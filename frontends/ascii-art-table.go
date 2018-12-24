@@ -22,7 +22,7 @@ type aatConfig struct {
 }
 
 const (
-	nightTime   = 22
+	nightTime   = 18
 	morningTime = 6
 )
 
@@ -294,11 +294,11 @@ func (c *aatConfig) formatCond(cur []string, cond iface.Cond, current bool) (ret
 
 	nightCodes := map[iface.WeatherCode][]string{
 		iface.CodeClear: {
-			"\033[38;5;21m  *  .-\"\"-.   \033[0m",
+			"\033[38;5;21m  *  .-\"\"-.  \033[0m",
 			"\033[38;5;21m    /      \\ \033[0m",
 			"\033[38;5;21m   |        |\033[0m",
 			"\033[38;5;21m    \\      / \033[0m",
-			"\033[38;5;21m *   '-..-'   \033[0m",
+			"\033[38;5;21m *   '-..-'  \033[0m",
 		},
 		iface.CodePartlyCloudy: {
 			"\033[38;5;21m     .-\"\"-.  \033[0m",
@@ -358,10 +358,10 @@ func (c *aatConfig) formatCond(cur []string, cond iface.Cond, current bool) (ret
 		},
 	}
 	icon, ok := codes[cond.Code]
-	if cond.Time.Hour() > nightTime || cond.Time.Hour() < morningTime {
-		iconNigth, okNight := nightCodes[cond.Code]
+	if cond.Time.Hour() >= nightTime || cond.Time.Hour() < morningTime {
+		iconNight, okNight := nightCodes[cond.Code]
 		if okNight {
-			icon = iconNigth
+			icon = iconNight
 			ok = okNight
 		}
 	}
