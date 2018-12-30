@@ -402,9 +402,9 @@ func (c *aatConfig) formatGeo(coords *iface.LatLon) (ret string) {
 
 func (c *aatConfig) printDay(day iface.Day) (ret []string) {
 	desiredTimesOfDay := []time.Duration{
-		8 * time.Hour,
+		6 * time.Hour,
 		12 * time.Hour,
-		19 * time.Hour,
+		18 * time.Hour,
 		23 * time.Hour,
 	}
 	ret = make([]string, 5)
